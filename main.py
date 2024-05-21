@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware # CORS
 import gzip
 from models import vidsrctoget,vidsrcmeget,info,fetch
 from io import BytesIO
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, Response
 
 app = FastAPI()
 
@@ -66,6 +66,6 @@ async def subs(url: str):
 async def proxy(url: str):
     try:
         response = await fetch(url)
-        return StreamingResponse(content=response.content, media_type=response.headers['Content-Type'])
+        return Response(content=response.content, media_type=response.headers['Content-Type'])
     except:
         raise HTTPException(status_code=500, detail=f"Error access url: {url}")
