@@ -62,3 +62,10 @@ async def subs(url: str):
     except:
         raise HTTPException(status_code=500, detail=f"Error fetching subtitle")
 
+@app.get('/proxy')
+async def proxy(url: str):
+    try:
+        response = await fetch(url)
+        return StreamingResponse(content=response.content, media_type=response.headers['Content-Type'])
+    except:
+        raise HTTPException(status_code=500, detail=f"Error access url: {url}")
