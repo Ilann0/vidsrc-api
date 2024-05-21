@@ -12,6 +12,14 @@ from fastapi.responses import StreamingResponse, Response
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get('/')
 async def index():
     return await info()
